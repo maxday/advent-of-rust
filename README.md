@@ -1,1 +1,1 @@
-# advent-of-rust
+# Advent of Rust
