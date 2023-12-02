@@ -3,6 +3,8 @@ WORKDIR /usr/src/app
 
 RUN dnf -y install gcc
 RUN dnf -y install procps
+RUN dnf -y install git
+
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
 RUN source $HOME/.cargo/env
 
