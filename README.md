@@ -1,7 +1,8 @@
 # Advent of Rust
 
 Welcome to this new Rust adventure!
-Every day we will build together a Rust REST API
+Every day we will build together a Rust REST API.
+
 Very beginner friendly, we will do it with live coding with detailed step by step!
 
 Enjoy! 🦀
