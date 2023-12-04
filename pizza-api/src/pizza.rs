@@ -7,11 +7,10 @@ pub struct Pizza {
 
 impl Pizza {
     pub fn new(name: String, toppings: Vec<String>, price: i32) -> Pizza {
-        let pizza = Pizza {
+        Pizza {
             name,
             toppings,
             price
-        };
-        return pizza
+        }
     }
 }
