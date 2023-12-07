@@ -1,22 +1,36 @@
 mod pizza;
 
+use actix_web::{HttpServer, App, HttpResponse, get};
+
 use crate::pizza::Pizza;
 use std::env::{self, VarError};
 
-fn get_port(result: Result<String, VarError>) -> i32 {
+fn get_port(result: Result<String, VarError>) -> u16 {
     let default_port = 8000;
     match result {
-        Ok(number) => number.parse::<i32>().unwrap_or(default_port),
+        Ok(number) => number.parse::<u16>().unwrap_or(default_port),
         Err(_) => default_port
     }
 }
-fn main() {
-    // let toppings = vec![String::from("topping1"), String::from("topping 2")];
-    // let pizza = Pizza::new(String::from("my pizza"),toppings,10);
-    // println!("my pizza is {:?}", pizza);
 
-    
-    println!("real port is {}", get_port(std::env::var("PORT")));
+#[get("/pizza")]
+async fn get_pizza() -> HttpResponse {
+    HttpResponse::Ok().body("this is the /pizza endpoint")
+}
+
+#[actix_web::main]
+async fn main() -> Result<(), std::io::Error>  {
+    let http_server = HttpServer::new(|| {
+        App::new().service(get_pizza)
+    });
+    let binding_info = ("0.0.0.0", get_port(std::env::var("PORT")));
+    let result = http_server.bind(binding_info);
+    match result {
+        Ok(server) => server.run().await,
+        Err(err) => { println!("impossible to bind the server");
+            Err(err)
+        }
+    }
 }
 
 #[cfg(test)]

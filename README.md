@@ -15,6 +15,9 @@ Enjoy! 🦀
 | 03      | Struct and functions  | [![maxday live coding](img/day03.png)](https://youtu.be/YE2EjDQP2sU)
 | 04      | Result type  | [![maxday live coding](img/day04.png)](https://youtu.be/A9HdmVN4QUc)
 | 05      | Unit testing  | [![maxday live coding](img/day05.png)](https://youtu.be/trigxVMYskA)
+| 06      | Crates  | [![maxday live coding](img/day05.png)](https://youtu.be/OMsrDtwmYTg)
+
+
 
 
 
