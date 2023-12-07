@@ -1,9 +1,10 @@
 mod pizza;
+mod service;
 
-use actix_web::{HttpServer, App, HttpResponse, get};
+use actix_web::{HttpServer, App};
+use service::get_pizza;
 
-use crate::pizza::Pizza;
-use std::env::{self, VarError};
+use std::env::VarError;
 
 fn get_port(result: Result<String, VarError>) -> u16 {
     let default_port = 8000;
@@ -13,24 +14,14 @@ fn get_port(result: Result<String, VarError>) -> u16 {
     }
 }
 
-#[get("/pizza")]
-async fn get_pizza() -> HttpResponse {
-    HttpResponse::Ok().body("this is the /pizza endpoint")
-}
-
 #[actix_web::main]
-async fn main() -> Result<(), std::io::Error>  {
+async fn main() -> std::io::Result<()>  {
     let http_server = HttpServer::new(|| {
         App::new().service(get_pizza)
     });
     let binding_info = ("0.0.0.0", get_port(std::env::var("PORT")));
-    let result = http_server.bind(binding_info);
-    match result {
-        Ok(server) => server.run().await,
-        Err(err) => { println!("impossible to bind the server");
-            Err(err)
-        }
-    }
+    let http_server = http_server.bind(binding_info)?;
+    http_server.run().await
 }
 
 #[cfg(test)]
