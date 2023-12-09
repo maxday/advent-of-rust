@@ -2,7 +2,7 @@ use actix_web::{get, HttpResponse};
 
 #[get("/pizza")]
 async fn get_pizza() -> HttpResponse {
-    HttpResponse::NoContent().body("this is the /pizza endpoint")
+    HttpResponse::Ok().body("this is the /pizza endpoint")
 }
 
 #[cfg(test)]
