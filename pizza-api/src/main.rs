@@ -1,8 +1,10 @@
 mod pizza;
-mod service;
+mod pizza_service;
+mod auth;
 
-use actix_web::{HttpServer, App};
-use service::get_pizza;
+use actix_web::{HttpServer, App, web};
+use actix_web_httpauth::middleware::HttpAuthentication;
+use pizza_service::get_pizza;
 
 use std::env::VarError;
 
@@ -17,7 +19,12 @@ fn get_port(result: Result<String, VarError>) -> u16 {
 #[actix_web::main]
 async fn main() -> std::io::Result<()>  {
     let http_server = HttpServer::new(|| {
-        App::new().service(get_pizza)
+        let auth = HttpAuthentication::bearer(auth::validate);
+        App::new().service(
+            web::scope("/pizza")
+            .wrap(auth)
+            .service(get_pizza)
+        )
     });
     let binding_info = ("0.0.0.0", get_port(std::env::var("PORT")));
     let http_server = http_server.bind(binding_info)?;

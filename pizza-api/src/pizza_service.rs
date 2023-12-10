@@ -1,13 +1,13 @@
 use actix_web::{get, HttpResponse};
 
-#[get("/pizza")]
+#[get("")]
 async fn get_pizza() -> HttpResponse {
     HttpResponse::Ok().body("this is the /pizza endpoint")
 }
 
 #[cfg(test)]
 mod test {
-    use actix_web::{test, App};
+    use actix_web::{test, App, web};
 
     use super::get_pizza;
 
@@ -15,7 +15,10 @@ mod test {
     #[actix_web::test]
     async fn test_pizza_endpoint() {
         let app = test::init_service(
-            App::new().service(get_pizza)
+            App::new().service(
+                web::scope("/pizza")
+                .service(get_pizza)
+            )
         ).await;
         let req = test::TestRequest::default().uri("/pizza")
         .to_request();
