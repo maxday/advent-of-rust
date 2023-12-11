@@ -1,9 +1,12 @@
 mod pizza;
 mod pizza_service;
+mod auth_service;
 mod auth;
+
 
 use actix_web::{HttpServer, App, web};
 use actix_web_httpauth::middleware::HttpAuthentication;
+use auth_service::{get_sign_in, get_callback};
 use pizza_service::get_pizza;
 
 use std::env::VarError;
@@ -20,7 +23,13 @@ fn get_port(result: Result<String, VarError>) -> u16 {
 async fn main() -> std::io::Result<()>  {
     let http_server = HttpServer::new(|| {
         let auth = HttpAuthentication::bearer(auth::validate);
-        App::new().service(
+        App::new()
+        .service(
+            web::scope("/auth")
+            .service(get_sign_in)
+            .service(get_callback)
+        )
+        .service(
             web::scope("/pizza")
             .wrap(auth)
             .service(get_pizza)
