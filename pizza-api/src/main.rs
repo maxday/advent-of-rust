@@ -8,6 +8,7 @@ use actix_web::{HttpServer, App, web};
 use actix_web_httpauth::middleware::HttpAuthentication;
 use auth_service::{get_sign_in, get_callback};
 use pizza_service::get_pizza;
+use dotenv::dotenv;
 
 use std::env::VarError;
 
@@ -21,6 +22,7 @@ fn get_port(result: Result<String, VarError>) -> u16 {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()>  {
+    dotenv().ok();
     let http_server = HttpServer::new(|| {
         let auth = HttpAuthentication::bearer(auth::validate);
         App::new()

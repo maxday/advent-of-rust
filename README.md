@@ -20,7 +20,7 @@ Enjoy! 🦀
 | 08      | Build a Docker image  | [![maxday live coding](img/day08.png)](https://youtu.be/HkEb9196Bsc)
 | 09      | Authentication Part 1  | [![maxday live coding](img/day09.png)](https://youtu.be/z4JBUuqGFPo)
 | 10      | Authentication Part 2  | [![maxday live coding](img/day10.png)](https://youtu.be/wfNXZJCCFbI)
-
+| 11      | Authentication Part 3  | [![maxday live coding](img/day11.png)](https://youtu.be/0D-7ggKae10)
 
 *⚠️ This project is not associated, affiliated, endorsed, or sponsored by the Rust foundation.*
 
