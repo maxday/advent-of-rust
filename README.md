@@ -22,6 +22,8 @@ Enjoy! 🦀
 | 10      | Authentication Part 2  | [![maxday live coding](img/day10.png)](https://youtu.be/wfNXZJCCFbI)
 | 11      | Authentication Part 3  | [![maxday live coding](img/day11.png)](https://youtu.be/0D-7ggKae10)
 | 12      | Authentication Part 4  | [![maxday live coding](img/day12.png)](https://youtu.be/4D-R_w_FVrU)
+| 13      | Authentication Part 5  | [![maxday live coding](img/day13.png)](https://youtu.be/KhHJzN1RZZg)
+
 
 *⚠️ This project is not associated, affiliated, endorsed, or sponsored by the Rust foundation.*
 

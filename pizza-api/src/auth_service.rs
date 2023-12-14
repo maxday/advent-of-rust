@@ -1,3 +1,5 @@
+use std::env::VarError;
+
 use actix_web::{HttpResponse, get, http::header::LOCATION, HttpRequest, web};
 use reqwest::{Client, header::ACCEPT};
 use serde::Deserialize;
@@ -22,15 +24,21 @@ struct CodeRequest {
 
 #[get("/callback")]
 async fn get_callback(req: web::Query<CodeRequest>) -> HttpResponse {
-    exchange_code_for_token(&req.code).await;
-    HttpResponse::Ok().body("this is /callback")
+    match exchange_code_for_token(&req.code).await {
+        Ok(auth_token) => HttpResponse::Ok().body(auth_token.access_token),
+        Err(error) => HttpResponse::BadGateway().body(error)
+    }
 }
 
-async fn exchange_code_for_token(code: &str) -> String {
-    // this is bad
-    let url = std::env::var("GITHUB_TOKEN_URL").unwrap();
-    let client_id = std::env::var("GITHUB_CLIENT_ID").unwrap();
-    let client_secret_id = std::env::var("GITHUB_CLIENT_SECRET_ID").unwrap();
+#[derive(Deserialize)]
+struct AuthToken {
+    access_token: String
+}
+
+async fn exchange_code_for_token(code: &str) -> Result<AuthToken, String> {
+    let url = std::env::var("GITHUB_TOKEN_URL").map_err(|e| e.to_string())?;
+    let client_id = std::env::var("GITHUB_CLIENT_ID").map_err(|e| e.to_string())?;
+    let client_secret_id = std::env::var("GITHUB_CLIENT_SECRET_ID").map_err(|e| e.to_string())?;
     let payload = [
         ("client_id", client_id),
         ("client_secret", client_secret_id),
@@ -45,9 +53,7 @@ async fn exchange_code_for_token(code: &str) -> String {
     .header(ACCEPT, "application/json")
     .send()
     .await
-    .unwrap();
+    .map_err(|e| e.to_string())?;
 
-    println!("response = {:?}", response.text().await);
-
-    return String::from("my-token");
+    Ok(response.json::<AuthToken>().await.unwrap())
 }
