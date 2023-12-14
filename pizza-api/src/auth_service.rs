@@ -46,7 +46,7 @@ async fn exchange_code_for_token(code: &str) -> Result<AuthToken, String> {
     ];
 
     let client = Client::new();
-    // this is bad, we need to refactor tomorrow!
+
     let response = client
     .post(url)
     .form(&payload)
@@ -55,5 +55,9 @@ async fn exchange_code_for_token(code: &str) -> Result<AuthToken, String> {
     .await
     .map_err(|e| e.to_string())?;
 
-    Ok(response.json::<AuthToken>().await.unwrap())
+    let token = response.json::<AuthToken>()
+    .await
+    .map_err(|e| e.to_string())?;
+
+    Ok(token)
 }
