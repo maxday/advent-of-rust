@@ -1,8 +1,10 @@
-use actix_web::{get, HttpResponse};
+use actix_web::{get, HttpResponse, web};
+
+use crate::app_state::AppState;
 
 #[get("")]
-async fn get_pizza() -> HttpResponse {
-    HttpResponse::Ok().body("this is the /pizza endpoint")
+async fn get_pizza(data: web::Data<AppState>) -> HttpResponse {
+    HttpResponse::Ok().json(data.get_list_pizza())
 }
 
 #[cfg(test)]

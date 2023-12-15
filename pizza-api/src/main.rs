@@ -2,11 +2,14 @@ mod pizza;
 mod pizza_service;
 mod auth_service;
 mod auth;
+mod app_state;
 
 
 use actix_web::{HttpServer, App, web};
 use actix_web_httpauth::middleware::HttpAuthentication;
+use app_state::AppState;
 use auth_service::{get_sign_in, get_callback};
+use pizza::Pizza;
 use pizza_service::get_pizza;
 use dotenv::dotenv;
 
@@ -23,9 +26,12 @@ fn get_port(result: Result<String, VarError>) -> u16 {
 #[actix_web::main]
 async fn main() -> std::io::Result<()>  {
     dotenv().ok();
-    let http_server = HttpServer::new(|| {
+    let pizza_db = Vec::<Pizza>::new();
+    let app_state = web::Data::new(AppState::new(pizza_db));
+    let http_server = HttpServer::new(move || {
         let auth = HttpAuthentication::bearer(auth::validate);
         App::new()
+        .app_data(app_state.clone())
         .service(
             web::scope("/auth")
             .service(get_sign_in)
@@ -33,7 +39,7 @@ async fn main() -> std::io::Result<()>  {
         )
         .service(
             web::scope("/pizza")
-            .wrap(auth)
+            //.wrap(auth)
             .service(get_pizza)
         )
     });
