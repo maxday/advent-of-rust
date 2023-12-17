@@ -10,7 +10,7 @@ use actix_web_httpauth::middleware::HttpAuthentication;
 use app_state::AppState;
 use auth_service::{get_sign_in, get_callback};
 use pizza::Pizza;
-use pizza_service::get_pizza;
+use pizza_service::{get_pizza, post_pizza};
 use dotenv::dotenv;
 
 use std::env::VarError;
@@ -41,6 +41,7 @@ async fn main() -> std::io::Result<()>  {
             web::scope("/pizza")
             //.wrap(auth)
             .service(get_pizza)
+            .service(post_pizza)
         )
     });
     let binding_info = ("0.0.0.0", get_port(std::env::var("PORT")));
