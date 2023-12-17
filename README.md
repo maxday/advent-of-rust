@@ -26,6 +26,7 @@ Enjoy! 🦀
 | 14      | Authentication Part 6  | [![maxday live coding](img/day14.png)](https://youtu.be/wq3QVqCnzgs)
 | 15      | Application state  | [![maxday live coding](img/day15.png)](https://youtu.be/aVe2lswaM1U)
 | 16      | POST endpoint  | [![maxday live coding](img/day16.png)](https://youtu.be/x-zy0SsEAWA)
+| 17      | Mutex and Concurrency  | [![maxday live coding](img/day17.png)](https://youtu.be/p2_I4N_JA6E)
 
 
 *⚠️ This project is not associated, affiliated, endorsed, or sponsored by the Rust foundation.*
