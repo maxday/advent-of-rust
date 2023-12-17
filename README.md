@@ -25,6 +25,8 @@ Enjoy! 🦀
 | 13      | Authentication Part 5  | [![maxday live coding](img/day13.png)](https://youtu.be/KhHJzN1RZZg)
 | 14      | Authentication Part 6  | [![maxday live coding](img/day14.png)](https://youtu.be/wq3QVqCnzgs)
 | 15      | Application state  | [![maxday live coding](img/day15.png)](https://youtu.be/aVe2lswaM1U)
+| 16      | POST endpoint  | [![maxday live coding](img/day16.png)](https://youtu.be/x-zy0SsEAWA)
+
 
 *⚠️ This project is not associated, affiliated, endorsed, or sponsored by the Rust foundation.*
 
