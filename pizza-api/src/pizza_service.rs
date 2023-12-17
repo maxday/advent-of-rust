@@ -8,8 +8,10 @@ async fn get_pizza(data: web::Data<AppState>) -> HttpResponse {
 }
 
 #[post("")]
-async fn post_pizza(pizza: web::Json<Pizza>) -> HttpResponse {
-    HttpResponse::Ok().json(pizza)
+async fn post_pizza(pizza: web::Json<Pizza>, data: web::Data<AppState>) -> HttpResponse {
+    let pizza = pizza.0;
+    data.add_pizza(pizza);
+    HttpResponse::Ok().json(data.get_list_pizza())
 }
 
 #[cfg(test)]
@@ -55,6 +57,7 @@ mod test {
         .method(Method::POST)
         .set_json(test_pizza)
         .to_request();
+
         let response = test::call_service(&app, req).await;
         assert!(response.status().is_success());
         assert_eq!(response.status().as_u16(), 200);
