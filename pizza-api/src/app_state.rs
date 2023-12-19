@@ -7,9 +7,10 @@ pub struct AppState {
 }
 
 impl AppState {
-    pub fn new(pizza: Vec<Pizza>) -> Self {
+    pub fn new() -> Self {
+        let pizza_db = Vec::<Pizza>::new();
         AppState {
-            pizza: Mutex::new(pizza)
+            pizza: Mutex::new(pizza_db)
         }
     }
     pub fn get_list_pizza(&self) -> Vec<Pizza> {
@@ -18,10 +19,9 @@ impl AppState {
             Err(_) => Vec::<Pizza>::default()
         }
     }
-    pub fn add_pizza(&self, new_pizza: Pizza) {
-        match self.pizza.lock() {
-            Ok(mut pizza) => pizza.push(new_pizza),
-            Err(_) => {}
-        }
+    pub fn add_pizza(&self, new_pizza: Pizza) -> Result<(), String> {
+        let mut pizza = self.pizza.lock().map_err(|e| e.to_string())?;
+        pizza.push(new_pizza);
+        Ok(())
     }
 }

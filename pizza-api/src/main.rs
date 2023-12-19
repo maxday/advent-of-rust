@@ -26,8 +26,7 @@ fn get_port(result: Result<String, VarError>) -> u16 {
 #[actix_web::main]
 async fn main() -> std::io::Result<()>  {
     dotenv().ok();
-    let pizza_db = Vec::<Pizza>::new();
-    let app_state = web::Data::new(AppState::new(pizza_db));
+    let app_state = web::Data::new(AppState::new());
     let http_server = HttpServer::new(move || {
         let auth = HttpAuthentication::bearer(auth::validate);
         App::new()
