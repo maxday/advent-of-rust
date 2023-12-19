@@ -27,7 +27,7 @@ Enjoy! 🦀
 | 15      | Application state  | [![maxday live coding](img/day15.png)](https://youtu.be/aVe2lswaM1U)
 | 16      | POST endpoint  | [![maxday live coding](img/day16.png)](https://youtu.be/x-zy0SsEAWA)
 | 17      | Mutex and Concurrency  | [![maxday live coding](img/day17.png)](https://youtu.be/p2_I4N_JA6E)
-
+| 18      | Error handling and unit tests  | [![maxday live coding](img/day18.png)](https://youtu.be/JJhJratI5tg)
 
 *⚠️ This project is not associated, affiliated, endorsed, or sponsored by the Rust foundation.*
 
